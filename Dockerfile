@@ -52,7 +52,11 @@ WORKDIR /evolution
 # Copy package files
 COPY ./package*.json ./
 
-# Install only production dependencies (ignore scripts to skip husky prepare)
+# Remove prepare script that requires husky (dev dependency) before install
+# This prevents npm from trying to run husky during production install
+RUN node -e "try { const fs=require('fs'); const pkg=JSON.parse(fs.readFileSync('package.json', 'utf8')); if(pkg.scripts && pkg.scripts.prepare) { delete pkg.scripts.prepare; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2)); } } catch(e) { console.error('Error removing prepare script:', e.message); process.exit(1); }"
+
+# Install only production dependencies (ignore-scripts prevents any scripts from running)
 RUN npm ci --silent --only=production --ignore-scripts --no-audit --no-fund && \
     npm cache clean --force
 
