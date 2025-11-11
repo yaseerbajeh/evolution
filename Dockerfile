@@ -52,8 +52,8 @@ WORKDIR /evolution
 # Copy package files
 COPY ./package*.json ./
 
-# Install only production dependencies
-RUN npm ci --silent --only=production --no-audit --no-fund && \
+# Install only production dependencies (ignore scripts to skip husky prepare)
+RUN npm ci --silent --only=production --ignore-scripts --no-audit --no-fund && \
     npm cache clean --force
 
 # Copy built application from builder
