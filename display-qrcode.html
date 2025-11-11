@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp QR Code - MkanTv</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #25D366;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        #qrcode {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .info h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .info-item {
+            margin: 10px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .info-item strong {
+            color: #333;
+        }
+        .instructions {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .instructions h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            color: #555;
+            font-size: 14px;
+        }
+        .instructions li {
+            margin: 8px 0;
+        }
+        .status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 WhatsApp Connection</h1>
+        <p class="subtitle">Instance: MkanTv | Phone: 966542668201</p>
+        
+        <div class="qr-container">
+            <img id="qrcode" src="" alt="QR Code will appear here">
+        </div>
+        
+        <div class="info">
+            <h3>Instance Information</h3>
+            <div class="info-item"><strong>Instance Name:</strong> <span id="instanceName">MkanTv</span></div>
+            <div class="info-item"><strong>Instance ID:</strong> <span id="instanceId">-</span></div>
+            <div class="info-item"><strong>Status:</strong> <span id="status" class="status pending">Pending Connection</span></div>
+            <div class="info-item"><strong>Hash Token:</strong> <span id="hash" style="font-family: monospace; font-size: 12px;">-</span></div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 How to Connect:</h3>
+            <ol>
+                <li>Open WhatsApp on your phone</li>
+                <li>Go to <strong>Settings</strong> → <strong>Linked Devices</strong></li>
+                <li>Tap <strong>"Link a Device"</strong></li>
+                <li>Scan the QR code shown above</li>
+                <li>Wait for the connection to be established</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        // This will be populated when the QR code is generated
+        // The base64 data will be set via JavaScript after API call
+        function setQRCode(base64Data) {
+            document.getElementById('qrcode').src = base64Data;
+        }
+        
+        function setInstanceInfo(data) {
+            if (data.instance) {
+                document.getElementById('instanceId').textContent = data.instance.instanceId || '-';
+                document.getElementById('status').textContent = data.instance.status || 'Pending';
+                if (data.instance.status === 'open') {
+                    document.getElementById('status').className = 'status connected';
+                    document.getElementById('status').textContent = 'Connected';
+                }
+            }
+            if (data.hash) {
+                document.getElementById('hash').textContent = data.hash;
+            }
+        }
+        
+        // If QR code data is passed via URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const qrData = urlParams.get('qr');
+        if (qrData) {
+            setQRCode(qrData);
+        }
+    </script>
+</body>
+</html>
+

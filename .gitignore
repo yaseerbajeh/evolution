@@ -46,3 +46,10 @@ lerna-debug.log*
 .tool-versions
 
 /prisma/migrations/*
+
+# Temporary files
+qrcode-*.png
+all_migrations.sql
+apply_migrations_safe.sql
+connect-whatsapp.ps1
+display-qrcode.html
