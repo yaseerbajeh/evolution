@@ -7,9 +7,12 @@ if [ "$DOCKER_ENV" != "true" ]; then
 fi
 
 if [[ "$DATABASE_PROVIDER" == "postgresql" || "$DATABASE_PROVIDER" == "mysql" || "$DATABASE_PROVIDER" == "psql_bouncer" ]]; then
-    export DATABASE_URL
+    # Map DATABASE_CONNECTION_URI to DATABASE_URL for Prisma compatibility
+    if [ -z "$DATABASE_URL" ] && [ -n "$DATABASE_CONNECTION_URI" ]; then
+        export DATABASE_URL="$DATABASE_CONNECTION_URI"
+    fi
     echo "Generating database for $DATABASE_PROVIDER"
-    echo "Database URL: $DATABASE_URL"
+    echo "Database URL: ${DATABASE_URL:-$DATABASE_CONNECTION_URI}"
     npm run db:generate
     if [ $? -ne 0 ]; then
         echo "Prisma generate failed"
