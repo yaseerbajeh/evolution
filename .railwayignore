@@ -1,0 +1,20 @@
+# Railway ignore file - excludes files from build context
+.git
+node_modules
+dist
+.env
+*.log
+*.png
+*.sql
+instances
+test
+.vscode
+.idea
+*.md
+!README.md
+qrcode-*.png
+all_migrations.sql
+apply_migrations_safe.sql
+connect-whatsapp.ps1
+display-qrcode.html
+

@@ -1,6 +1,108 @@
+# Git
 .git
+.gitignore
+.gitattributes
+.gitmodules
+
+# Docker
 *Dockerfile*
 *docker-compose*
+.dockerignore
+
+# Environment
 .env
+.env.local
+.env.*.local
+*.env
+
+# Dependencies
 node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json.backup
+
+# Build output
 dist
+build
+*.tsbuildinfo
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Test
+test
+tests
+*.test.ts
+*.spec.ts
+coverage
+.nyc_output
+
+# Documentation
+*.md
+!README.md
+docs
+CHANGELOG.md
+LICENSE
+AGENTS.md
+CLAUDE.md
+
+# Temporary files
+tmp
+temp
+*.tmp
+*.temp
+qrcode-*.png
+all_migrations.sql
+apply_migrations_safe.sql
+connect-whatsapp.ps1
+display-qrcode.html
+
+# Instances (runtime data)
+instances
+store
+docker-compose-data
+docker-data
+
+# Prisma migrations (handled by deployment script)
+prisma/migrations
+
+# Manager source (only dist is needed)
+manager/src
+manager/node_modules
+evolution-manager-v2
+
+# Extras
+Extras
+local_install.sh
+manager_install.sh
+
+# Railway
+railway.json
+.railway
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Other
+Baileys
+*.DS_Store
+.tool-versions
+yarn.lock
+pnpm-lock.yaml
