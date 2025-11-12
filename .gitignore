@@ -53,3 +53,6 @@ all_migrations.sql
 apply_migrations_safe.sql
 connect-whatsapp.ps1
 display-qrcode.html
+
+# Deployment files
+.env.production

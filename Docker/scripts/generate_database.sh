@@ -6,6 +6,9 @@ if [ "$DOCKER_ENV" != "true" ]; then
     export_env_vars
 fi
 
+# Trim whitespace from DATABASE_PROVIDER
+DATABASE_PROVIDER=$(echo "$DATABASE_PROVIDER" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
+
 if [[ "$DATABASE_PROVIDER" == "postgresql" || "$DATABASE_PROVIDER" == "mysql" || "$DATABASE_PROVIDER" == "psql_bouncer" ]]; then
     # Map DATABASE_CONNECTION_URI to DATABASE_URL for Prisma compatibility
     if [ -z "$DATABASE_URL" ] && [ -n "$DATABASE_CONNECTION_URI" ]; then
